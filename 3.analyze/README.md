@@ -2,6 +2,6 @@
 sort: 3
 ---
 
-# 项目设计
+# 架构分析
 
 {% include list.liquid all=true %}
