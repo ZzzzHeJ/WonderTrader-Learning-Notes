@@ -2,6 +2,6 @@
 sort: 3
 ---
 
-# 前言
+# 常见问题
 
 {% include list.liquid all=true %}
