@@ -435,7 +435,7 @@ class CsvFeed(Ifeed):
             self.tick_df_to_dsb(df,dsb_path)
             
 if __name__ == '__main__':
-    # # 数据存储的目录
+    # 数据存储的目录
     storage_path = "./storage"
     # RqFeed
     feed = RqFeed()
