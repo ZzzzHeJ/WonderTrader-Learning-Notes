@@ -4,7 +4,7 @@ sort: 3
 
 # datakit
 
-对应demo地址[datakit](https://github.com/wondertrader/wtpy/tree/master/demos/datakit_fut)
+对应demo地址[datakit](https://github.com/ZzzzHeJ/WonderTrader-Learning-Notes/tree/demo/dataFeed)
 
 仿真或实盘中的实时行情，需要通过datakit工具实时接收，datakit将接受到的行情分发给不同的策略，同时并保存到本地作为当日的历史行情，在收盘后会的盘后处理中，将当日数据合并到历史行情中。盘后工作的时间取决于datakit的配置文件statemonitor.yaml
 
