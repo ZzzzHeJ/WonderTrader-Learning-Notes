@@ -76,13 +76,13 @@ FD0915:
 ```yaml
 parsers:
 -   active: true
-    broker: '4500'
+    broker: '9999'
     code: ''
-    front: tcp://120.25.73.42:41313
-    id: GT_Parser
+    front: tcp://180.168.146.187:10211
+    id: parser
     module: ParserCTP
-    user: youname
-    pass: yourpass
+    pass: 你的SIMNOW密码
+    user: 你的SIMNOW账号
 ```
 
 # runDT

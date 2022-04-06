@@ -463,6 +463,28 @@ class CsvFeed(Ifeed):
             self.tick_df_to_dsb(df,dsb_path)
 ```
 
+具体使用
+
+```python
+    # 从米筐下载数据
+    feed = RqFeed()
+    storage_path = "./storage"
+    # 输入的代码记得区分大小写
+    feed.store_his_bar(storage_path,"SHFE.ni.2201",start_date="20211225",end_date="20220101",frequency="m1",skip_saved=False)
+    feed.store_his_tick(storage_path,"SHFE.ni.2201",start_date="20211225",end_date="20220101",skip_saved=False)
+
+    # 从csv中下载数据
+    feed = CsvFeed()
+    storage_path = "./storage"
+    feed.store_his_tick(storage_path, "SHFE.ni.2204","ni2204.csv")
+    feed.store_his_bar(storage_path, "SHFE.ni.2204","SHFE.NI.2202_m1.csv",frequency="m1")
+
+    # 读取dsb数据
+    dtHelper = WtDataHelper()
+    dtHelper.dump_bars(binFolder="./storage/his/min1/SHFE/", csvFolder="min1_csv")
+    dtHelper.dump_ticks(binFolder="./storage/his/ticks/SHFE/20211227/", csvFolder="ticks_csv")
+```
+
 ```tip
 继承Ifeed的子类主要需要实现get_tick与get_bar两个功能，在这两个功能中，需要返回wt格式的DataFarme有一下需要注意的细节：
 - 字段要映射对
