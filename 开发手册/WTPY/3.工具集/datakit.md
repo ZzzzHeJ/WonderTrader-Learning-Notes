@@ -20,7 +20,7 @@ basefiles:                                    # 基础配置文件目录
     session: ..\common\sessions.json
 broadcaster:                                  # 数据广播设置
     active: true
-    bport: 3997
+    bport: 3997                               # 端口
     broadcast:                                # 广播设置，策略配置中tdparsers.yaml的配置需要与这个一致，否则无法接收到数据
     -   host: 255.255.255.255
         port: 9001
@@ -43,9 +43,13 @@ statemonitor: statemonitor.yaml               # 状态设置
 writer:                                       # 行情记录设置
     async: true
     groupsize: 100
-    path: ./FUT_Data
+    path: ./FUT_Data                          # 存储路径
     savelog: true
 
+```
+
+```tip
+如果需要开启多个datakit的话，需要设置不同的bport与path
 ```
 
 # statemonitor.yaml
