@@ -53,6 +53,7 @@ writer:                                       # 行情记录设置
     disabletrans: false     #不保存股票l2逐笔成交数据，默认false
     disableordque: false    #不保存股票l2委托队列数据，默认false
     disableorddtl: false    #不保存股票l2逐笔委托数据，默认false
+    disablehis: false       #收盘作业不转存历史数据，默认false
     
 
 ```
