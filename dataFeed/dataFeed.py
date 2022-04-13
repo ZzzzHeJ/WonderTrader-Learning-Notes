@@ -443,12 +443,12 @@ if __name__ == '__main__':
     storage_path = "./storage"
     # RqFeed
     feed = RqFeed()
-    feed.store_his_bar(storage_path,"SHFE.ni.HOT",start_date="20211225",end_date="20220101",frequency="m1",skip_saved=False)
-    feed.store_his_tick(storage_path,"SHFE.ni.HOT",start_date="20211225",end_date="20220101",skip_saved=False)
+    feed.store_his_bar(storage_path,"SHFE.ni.2201",start_date="20211225",end_date="20220101",frequency="m1",skip_saved=False)
+    feed.store_his_tick(storage_path,"SHFE.ni.2201",start_date="20211225",end_date="20220101",skip_saved=False)
     # CsvFeed
-    # feed = CsvFeed()
-    # feed.store_his_tick(storage_path, "SHFE.ni.2204","ni2204.csv")
-    # feed.store_his_bar(storage_path, "SHFE.ni.2202","SHFE.NI.2202_m1.csv",frequency="m1")
+    feed = CsvFeed()
+    feed.store_his_tick(storage_path, "SHFE.ni.2204","ni2204.csv")
+    feed.store_his_bar(storage_path, "SHFE.ni.2202","SHFE.NI.2202_m1.csv",frequency="m1")
     # 读取dsb数据
     dtHelper = WtDataHelper()
     dtHelper.dump_bars(binFolder="./storage/his/min1/SHFE/", csvFolder="min1_csv")
