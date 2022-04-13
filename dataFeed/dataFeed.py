@@ -145,6 +145,8 @@ class Ifeed(object):
         exchange,pid,month = self.parse_code(code)
         if exchange == "CZCE":
             month = month[-3:]
+        if month == "HOT":
+            month = "_HOT"
         if frequency not in self.frequency_map.keys():
             print("周期只能为m1、m5或d,回测或实盘中会自动拼接")
         period = self.period_map[frequency]
@@ -172,6 +174,8 @@ class Ifeed(object):
         exchange,pid,month = self.parse_code(code)
         if exchange == "CZCE":
             month = month[-3:]
+        if month == "HOT":
+            month = "_HOT"
         # 分天下载，避免内存超出
         for date in pd.date_range(start_date,end_date):
             save_path = os.path.join(storage_path,"his","ticks",exchange,date.strftime('%Y%m%d'))
@@ -228,10 +232,10 @@ class RqFeed(Ifeed):
             "total_turnover":"total_turnover",
             "turn_over":"turn_over",
             "open_interest":"open_interest",
-            "diff_interest":"diff_interest",
+            "diff_interest":"diff_interest",  
             "trading_date":"trading_date",
             "date":"action_date",
-            "action_time":"action_time",
+            "time":"action_time",
             "prev_close":"pre_close",
             "settle_price":"settle_price",
             "prev_settlement":"pre_settle",
@@ -435,9 +439,17 @@ class CsvFeed(Ifeed):
             self.tick_df_to_dsb(df,dsb_path)
             
 if __name__ == '__main__':
-    # # 数据存储的目录
+    # 数据存储的目录
     storage_path = "./storage"
-    feed = CsvFeed()
-    storage_path = "./storage"
-    feed.store_his_tick(storage_path, "SHFE.ni.2204","ni2204.csv")
-    feed.store_his_bar(storage_path, "SHFE.ni.2202","SHFE.NI.2202_m1.csv",frequency="m1")
+    # RqFeed
+    feed = RqFeed()
+    feed.store_his_bar(storage_path,"SHFE.ni.HOT",start_date="20211225",end_date="20220101",frequency="m1",skip_saved=False)
+    feed.store_his_tick(storage_path,"SHFE.ni.HOT",start_date="20211225",end_date="20220101",skip_saved=False)
+    # CsvFeed
+    # feed = CsvFeed()
+    # feed.store_his_tick(storage_path, "SHFE.ni.2204","ni2204.csv")
+    # feed.store_his_bar(storage_path, "SHFE.ni.2202","SHFE.NI.2202_m1.csv",frequency="m1")
+    # 读取dsb数据
+    dtHelper = WtDataHelper()
+    dtHelper.dump_bars(binFolder="./storage/his/min1/SHFE/", csvFolder="min1_csv")
+    dtHelper.dump_ticks(binFolder="./storage/his/ticks/SHFE/20211227/", csvFolder="ticks_csv")
