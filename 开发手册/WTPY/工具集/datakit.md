@@ -8,6 +8,10 @@ sort: 3
 
 仿真或实盘中的实时行情，需要通过datakit工具实时接收，datakit将接受到的行情分发给不同的策略，同时并保存到本地作为当日的历史行情，在收盘后会的盘后处理中，将当日数据合并到历史行情中。盘后工作的时间取决于datakit的配置文件statemonitor.yaml
 
+```tip
+datakit接受哪些合约的行情，取决于contracts.json，所以记得定时使用ctp_loader进行更新。
+```
+
 # dtcfg.yaml
 
 datakit工具配置，制定了基础配置文件的所在目录、行情分发设置以及指定其他配置文件
