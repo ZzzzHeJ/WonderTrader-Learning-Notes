@@ -99,7 +99,9 @@ class Ifeed(object):
             curTick.action_time = int(int(row["action_time"]) / 1000)
             curTick.pre_close = float(row["pre_close"])
             curTick.pre_settle = float(row["pre_settle"])
-            curTick.pre_interest = float(0.0)
+            curTick.pre_interest = float(row["pre_interest"])
+            curTick.upper_limit = float(row["upper_limit"])
+            curTick.downper_limit = float(row["downper_limit"])
             for x in range(0,5):
                 curTick.bid_prices[x] = float(row["bid_" + str(x+1)])
                 curTick.bid_qty[x] = float(row["bid_qty_" + str(x+1)])
@@ -239,6 +241,9 @@ class RqFeed(Ifeed):
             "prev_close":"pre_close",
             "settle_price":"settle_price",
             "prev_settlement":"pre_settle",
+            "pre_interest":"pre_interest",
+            "limit_up":"upper_limit",
+            "limit_down":"downper_limit"
         }
         for i in [1,2,3,4,5]:
             self.tick_col_map[f"a{i}"] = f"ask_{i}"
@@ -295,6 +300,7 @@ class RqFeed(Ifeed):
         df["turn_over"] = (df["total_turnover"] - df["total_turnover"].shift(1)).fillna(0.0)
         df["vol"] = (df["volume"] - df["volume"].shift(1)).fillna(0.0)
         df["diff_interest"] = (df["open_interest"] - df["open_interest"].shift(1)).fillna(0.0)
+        df["pre_interest"] = df["open_interest"].shift(1).fillna(0.0)
         df = df[[col for col in self.tick_col_map.keys()]]
         df = df.rename(columns=self.tick_col_map)
         return df
@@ -354,6 +360,9 @@ class CsvFeed(Ifeed):
             "preclose" : "pre_close",
             "presettle": "pre_settle",
             "preinterest" : "pre_interest",
+            "pre_interest":"pre_interest",
+            "limit_up":"upper_limit",
+            "limit_down":"downper_limit"
         }
         for i in [1,2,3,4,5]:
             self.tick_col_map[f"askprice{i}"] = f"ask_{i}"
