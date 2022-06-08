@@ -6,6 +6,7 @@ from tqdm import tqdm
 import os
 import sys
 os.chdir(sys.path[0])
+
 class Ifeed(object):
     def __init__(self):
         self.dthelper = WtDataHelper()
@@ -65,7 +66,7 @@ class Ifeed(object):
         buffer = BUFFER()
         for index, row in tqdm(df.iterrows()):
             curBar = buffer[index]
-            curBar.time = int((int(row["date"])-19900000)*10000 + int(row["time"]))
+            curBar.time = (int(row["date"])-19900000)*10000 + int(row["time"])
             curBar.open = float(row["open"])
             curBar.high = float(row["high"])
             curBar.low = float(row["low"])
@@ -234,7 +235,7 @@ class RqFeed(Ifeed):
             "total_turnover":"total_turnover",
             "turn_over":"turn_over",
             "open_interest":"open_interest",
-            "diff_interest":"diff_interest",  
+            "diff_interest":"diff_interest",
             "trading_date":"trading_date",
             "date":"action_date",
             "time":"action_time",
@@ -279,7 +280,11 @@ class RqFeed(Ifeed):
     def get_tick(self,code,start_date=None,end_date=None):
         symbol = self.code_std(code)
         exchange,pid,month = self.parse_code(code)
-        df = self.rq.get_price(symbol,start_date=start_date,end_date=end_date,frequency="tick")
+        try:
+            df = self.rq.get_price(symbol,start_date=start_date,end_date=end_date,frequency="tick")
+        except Exception as e:
+            print(f"rqfeed get tick erro: {e}")
+            df = None
         if df is None:
             return None
         df = df.reset_index()
@@ -310,7 +315,11 @@ class RqFeed(Ifeed):
             print("周期只能为m1、m5或d,回测或实盘中会自动拼接")
         rq_frequency = self.frequency_map[frequency]
         symbol = self.code_std(code)
-        df = self.rq.get_price(symbol,start_date=start_date,end_date=end_date,frequency=rq_frequency)
+        try:
+            df = self.rq.get_price(symbol,start_date=start_date,end_date=end_date,frequency=rq_frequency)
+        except Exception as e:
+            print(f"rqfeed get bar erro: {e}")
+            df = None
         if df is None:
             return None
         df = df.reset_index()
