@@ -4,7 +4,7 @@ sort: 4
 
 # dataFeed
 
-对应demo地址[datakit](https://github.com/wondertrader/wtpy/tree/master/demos/rqdata_demo)
+对应demo地址[datakit](https://github.com/ZzzzHeJ/WonderTrader-Learning-Notes/tree/demo/dataFeed)
 
 datakit提供了录制实时行情的功能，但如果需要从其他数据源中获取历史行情，则需要借助dataFeed的帮助。
 
