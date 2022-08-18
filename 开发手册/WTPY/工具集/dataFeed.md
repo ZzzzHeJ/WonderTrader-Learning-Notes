@@ -112,10 +112,10 @@ class Ifeed(object):
             curTick.pre_settle = float(row["pre_settle"])
             curTick.pre_interest = float(0.0)
             for x in range(0,5):
-                curTick.bid_prices[x] = float(row["bid_" + str(x+1)])
-                curTick.bid_qty[x] = float(row["bid_qty_" + str(x+1)])
-                curTick.ask_prices[x] = float(row["ask_" + str(x+1)])
-                curTick.ask_qty[x] = float(row["ask_qty_" + str(x+1)])
+                setattr(curTick,f"bid_price_{x}",float(row["bid_" + str(x+1)]))
+                setattr(curTick,f"bid_qty_{x}",float(row["bid_qty_" + str(x+1)]))
+                setattr(curTick,f"ask_prices_{x}",float(row["ask_" + str(x+1)]))
+                setattr(curTick,f"ask_qty_{x}",float(row["ask_qty_" + str(x+1)]))
         return buffer
         
     def bar_df_to_dsb(self,df,dsb_file,period):
