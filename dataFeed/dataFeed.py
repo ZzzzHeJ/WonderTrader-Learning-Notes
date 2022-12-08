@@ -66,6 +66,7 @@ class Ifeed(object):
         buffer = BUFFER()
         for index, row in tqdm(df.iterrows()):
             curBar = buffer[index]
+            curBar.date = int(row["date"])
             curBar.time = (int(row["date"])-19900000)*10000 + int(row["time"])
             curBar.open = float(row["open"])
             curBar.high = float(row["high"])
